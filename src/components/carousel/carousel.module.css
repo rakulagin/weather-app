@@ -1,6 +1,13 @@
+.mainContainer {
+position: relative;
+}
+
 .carouselContainer {
+   display: flex;
   position: relative;
   overflow-x: hidden;
+  width: calc(100% - 70px);
+  margin: 0 auto;
 }
 
 .carousel {
@@ -9,5 +16,23 @@
   position: relative;
   width: fit-content;
   white-space: nowrap;
+  transition: transform 0.5s ease;
+}
 
+.arrow {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.nextBtn {
+  left: 0px;
+}
+
+.arrowRight {
+  right: 0px;
+  transform: rotate(180deg) translateY(50%);
 }

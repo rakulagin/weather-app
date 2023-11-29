@@ -15,13 +15,12 @@ interface I_Carousel {
 
 const WeatherBlock: FC<I_Carousel> = ({ isCarousel }) => {
 	return (
-		// <div className={styles.block}>
 		<div
-			className={classNames(styles.block, isCarousel && styles.blockInCarousel)}
+			className={classNames(styles.mainBlock, isCarousel ? styles.blockInCarousel : styles.block)}
 		>
 			<h2>Воскресенье, 17 Сетнября</h2>
 			<p>облачно с прояснениями</p>
-			<img className={styles.weatherPick} src={SunRain} alt='weather picture' />
+			<img className={styles.weatherPick} src={SunRain} alt='weather' />
 			{isCarousel ? (
 				<div className={styles.metricsInCarousel}>
 					<p>Днем 14 С</p>

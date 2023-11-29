@@ -1,6 +1,21 @@
 .block {
   width: 400px;
   padding: 10px 20px;
+  /* border: 3px solid rgba(0,0,0,0.4);
+  border-radius: 8px;
+  background-color: rgba(0,0,0,0.4);
+  backdrop-filter: blur(3px);
+  color: rgba(255,255,255,0.8);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px; */
+}
+
+.mainBlock {
+  /* width: 400px;
+  padding: 10px 20px; */
   border: 3px solid rgba(0,0,0,0.4);
   border-radius: 8px;
   background-color: rgba(0,0,0,0.4);
@@ -65,4 +80,10 @@ h2 {
 		width: calc(100% - 45px);
     align-self: center;
 	}
+}
+
+@media (max-width: 425px) {
+  .blockInCarousel {
+    width: 260px;
+  }
 }
