@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {FC, useState} from 'react';
 
 import styles from './locationBlock.module.css';
 
-const LocationBlock = () => {
+interface I_LocationBlock {
+	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LocationBlock: FC<I_LocationBlock> = ({setIsOpen}) => {
+
+	const handleButtonClick = () => {
+		setIsOpen(true)
+	}
+
+
 	return (
 		<div className={styles.block}>
 			<div className={styles.subBlock}>
@@ -12,7 +22,7 @@ const LocationBlock = () => {
 			</div>
 			<div className={styles.subBlock}>
 				<h2>15:12:17</h2>
-				<button>Изменить</button>
+				<button onClick={handleButtonClick}>Изменить</button>
 			</div>
 		</div>
 	);
