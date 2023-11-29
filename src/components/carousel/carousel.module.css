@@ -1,4 +1,13 @@
+.carouselContainer {
+  position: relative;
+  overflow-x: hidden;
+}
+
 .carousel {
   display: flex;
   gap: 16px;
+  position: relative;
+  width: fit-content;
+  white-space: nowrap;
+
 }

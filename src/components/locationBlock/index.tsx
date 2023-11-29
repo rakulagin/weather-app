@@ -1,15 +1,19 @@
 import React from 'react';
 
-import styles from './locationBlock.module.css'
+import styles from './locationBlock.module.css';
 
 const LocationBlock = () => {
 	return (
 		<div className={styles.block}>
-			<p>Россия,</p>
-			<h2>Самара</h2>
-			<p>50.100202 50.100202</p>
-			<h2>15:12:17</h2>
-			<button>Изменить</button>
+			<div className={styles.subBlock}>
+				<p>Россия,</p>
+				<h2>Самара</h2>
+				<p>50.100202 50.100202</p>
+			</div>
+			<div className={styles.subBlock}>
+				<h2>15:12:17</h2>
+				<button>Изменить</button>
+			</div>
 		</div>
 	);
 };

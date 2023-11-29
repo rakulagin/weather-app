@@ -1,9 +1,15 @@
 .block {
-  /* background-color: #fff; */
-  text-align: end;
   display: flex;
+  align-items: end;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+}
+
+.subBlock {
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+  gap: 6px;
 }
 
 button {
@@ -13,4 +19,15 @@ button {
   outline: none;
   border: 3px solid rgba(0,0,0,0.5);
   border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+	.block {
+    flex-direction: row;
+    justify-content: space-between;
+
+    & :first-child  {
+      align-items: baseline;
+    }
+	}
 }
