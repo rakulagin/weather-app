@@ -1,0 +1,16 @@
+.block {
+  /* background-color: #fff; */
+  text-align: end;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+button {
+  font-size: 18px;
+  padding: 5px 10px;
+  background: none;
+  outline: none;
+  border: 3px solid rgba(0,0,0,0.5);
+  border-radius: 4px;
+}

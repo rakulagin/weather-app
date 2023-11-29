@@ -1,0 +1,56 @@
+.block {
+  width: 400px;
+  padding: 10px 20px;
+  border: 3px solid rgba(0,0,0,0.4);
+  border-radius: 8px;
+  background-color: rgba(0,0,0,0.2);
+  color: rgba(255,255,255,0.8);
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.blockInCarousel {
+  width: 330px;
+  padding: 20px 10px 40px;
+}
+
+.weatherPick {
+  width: 100px;
+  height: 100px;
+  margin: 15px 0;
+}
+
+.metrics {
+  display: flex;
+  align-items: center;
+  align-self: baseline;
+  > div > p:not(:last-child) {
+    margin-bottom: 4px;
+  }
+}
+
+.metricsInCarousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.darken {
+  color: rgba(255,255,255,0.4);
+}
+
+.link {
+  font-size: 12px;
+  font-style: italic;
+  cursor: pointer;
+}

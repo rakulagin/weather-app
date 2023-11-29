@@ -1,0 +1,17 @@
+import React from 'react';
+
+import styles from './locationBlock.module.css'
+
+const LocationBlock = () => {
+	return (
+		<div className={styles.block}>
+			<p>Россия,</p>
+			<h2>Самара</h2>
+			<p>50.100202 50.100202</p>
+			<h2>15:12:17</h2>
+			<button>Изменить</button>
+		</div>
+	);
+};
+
+export default LocationBlock;
