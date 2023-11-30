@@ -61,8 +61,6 @@ const WeatherBlock: FC<I_Carousel> = ({
 	const [icon, setIcon] = useState(icon01d);
 	const [miniIcon, setMiniIcon] = useState(icon01d);
 
-	console.log('weatherMini', weatherMini);
-
 	useEffect(() => {
 		if (data.weather && data.weather[0]) {
 			if (data.weather[0].icon === '01d') {
@@ -316,7 +314,15 @@ const WeatherBlock: FC<I_Carousel> = ({
 			) : (
 				<p className={styles.height}></p>
 			)}
-			<img className={styles.weatherPick} src={isCarousel && isToday ? icon : isCarousel ? miniIcon : icon} alt='weather' />
+			{status === 'loaded' ? (
+				<img
+					className={styles.weatherPick}
+					src={isCarousel && isToday ? icon : isCarousel ? miniIcon : icon}
+					alt='weather'
+				/>
+			) : (
+				<div className={styles.weatherPick}></div>
+			)}
 			{isToday ? (
 				<div className={styles.metricsInCarousel}>
 					<p>Температура {temp && temp} С</p>

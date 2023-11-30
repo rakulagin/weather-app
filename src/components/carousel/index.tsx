@@ -26,6 +26,7 @@ const Carousel: FC<I_CarouselProps> = () => {
 	const [offset, setOffset] = useState(0);
 	const [maxOffset, setMaxOffset] = useState(0);
 	const [ratio, setRatio] = useState(0);
+	const [halfWidth, setHalfWidth] = useState(0)
 
 	const handleLeftClick = () => {
 		const firstClick = offset === maxOffset ? weatherBlockWidth * ratio : 0;
@@ -44,10 +45,11 @@ const Carousel: FC<I_CarouselProps> = () => {
 		setOffset(value);
 	};
 
+	// нужна для того чтобы высчитать на сколько сдвинуть первый блок при первом клике
 	const calculateMaxOffset = () => {
 		if (windowRef.current) {
 			const temp =
-				-(27 - windowRef.current.clientWidth / weatherBlockWidth) *
+				-(list.length - windowRef.current.clientWidth / weatherBlockWidth) *
 				weatherBlockWidth;
 			setMaxOffset(temp);
 		}
@@ -73,7 +75,7 @@ const Carousel: FC<I_CarouselProps> = () => {
 	useEffect(() => {
 		calculateMaxOffset();
 		calculateRatio();
-	}, [weatherBlockWidth, windowRef, offset]);
+	}, [weatherBlockWidth, windowRef, offset, maxOffset, ratio, list]);
 
 	useEffect(() => {
 		calculateBlockWidth();
@@ -90,7 +92,7 @@ const Carousel: FC<I_CarouselProps> = () => {
 		return () => {
 			window.removeEventListener('resize', handleResize);
 		};
-	}, []);
+	}, [weatherBlockWidth, windowRef, offset, maxOffset, ratio, list]);
 
 	return (
 		<div className={styles.mainContainer}>
