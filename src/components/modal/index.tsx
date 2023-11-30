@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
@@ -14,8 +14,9 @@ interface I_Modal {
 }
 
 const Modal: FC<I_Modal> = ({ setIsOpen }) => {
-	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> = useDispatch();
-	const { data, selectedCity } = useSelector((state: any) => state.cities.cities)
+	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
+		useDispatch();
+	const { data } = useSelector((state: any) => state.cities.cities);
 
 	const handleSelectCity = (city: any) => {
 		dispatch(setSelectedCity(city));
@@ -29,12 +30,20 @@ const Modal: FC<I_Modal> = ({ setIsOpen }) => {
 	return (
 		<div className={styles.modal}>
 			<div className={styles.top}>
-			<p className={styles.title}>Выберите населенный пункт</p>
-			<span className={styles.close} onClick={handleCloseClick}>X</span>
+				<p className={styles.title}>Выберите населенный пункт</p>
+				<span className={styles.close} onClick={handleCloseClick}>
+					X
+				</span>
 			</div>
 			<div className={styles.list}>
 				{data.map((el: any, index: number) => (
-					<div key={index} className={styles.item} onClick={() => handleSelectCity(el)}>{el.value}</div>
+					<div
+						key={index}
+						className={styles.item}
+						onClick={() => handleSelectCity(el)}
+					>
+						{el.value}
+					</div>
 				))}
 			</div>
 		</div>

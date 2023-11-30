@@ -16,16 +16,11 @@ import { getCurrentTime } from '../../helpers/formatTime';
 import styles from './locationBlock.module.scss';
 
 interface I_LocationBlock {
-	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsInput: React.Dispatch<React.SetStateAction<boolean>>;
 	isInput: boolean;
 }
 
-const LocationBlock: FC<I_LocationBlock> = ({
-	setIsOpen,
-	isInput,
-	setIsInput,
-}) => {
+const LocationBlock: FC<I_LocationBlock> = ({ isInput, setIsInput }) => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
 		useDispatch();
 
@@ -33,7 +28,6 @@ const LocationBlock: FC<I_LocationBlock> = ({
 		(state: any) => state.cities.cities
 	);
 
-	// const [isInput, setIsInput] = useState<boolean>(false);
 	const [inputValue, setInputValue] = useState<string>('');
 
 	const debounce = useDebounce(inputValue, 1000);
@@ -94,7 +88,7 @@ const LocationBlock: FC<I_LocationBlock> = ({
 						{selectedCity.data.geo_lat} {selectedCity.data.geo_lon}
 					</p>
 				) : (
-					<p className={styles.height}>
+					<p className={styles.height16}>
 						{location.data && location.data.geo_lat}{' '}
 						{location.data && location.data.geo_lon}
 					</p>

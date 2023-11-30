@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
 
+import { RootState } from '../../redux/rootReducer';
 import { useSelector } from 'react-redux';
 
 import classNames from 'classnames';
@@ -10,23 +11,18 @@ import IconArrow from '../custom/icon-arrow';
 
 import styles from './carousel.module.scss';
 
-interface I_CarouselProps {
-	items?: React.ReactNode[];
-}
-
-const Carousel: FC<I_CarouselProps> = () => {
+const Carousel: FC = () => {
 	const { list } = useSelector(
-		(state: any) => state.weatherForecast.weatherForecast
+		(state: RootState) => state.weatherForecast.weatherForecast
 	);
 
 	const blockRef = useRef<HTMLDivElement>(null);
 	const windowRef = useRef<HTMLDivElement>(null);
 
-	const [weatherBlockWidth, setWeatherBlockWidth] = useState(0);
-	const [offset, setOffset] = useState(0);
-	const [maxOffset, setMaxOffset] = useState(0);
-	const [ratio, setRatio] = useState(0);
-	const [halfWidth, setHalfWidth] = useState(0)
+	const [weatherBlockWidth, setWeatherBlockWidth] = useState<number>(0);
+  const [offset, setOffset] = useState<number>(0);
+  const [maxOffset, setMaxOffset] = useState<number>(0);
+  const [ratio, setRatio] = useState<number>(0);
 
 	const handleLeftClick = () => {
 		const firstClick = offset === maxOffset ? weatherBlockWidth * ratio : 0;
@@ -111,7 +107,7 @@ const Carousel: FC<I_CarouselProps> = () => {
 						<WeatherBlock isToday={true} isCarousel={true} />
 					</div>
 					{list &&
-						list.map((el: any, index: any) => (
+						list.map((el: any, index: number) => (
 							<WeatherBlock
 								weatherMini={el.weather}
 								tempMini={el.main}

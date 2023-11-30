@@ -6,7 +6,7 @@ import { citiesReducer } from './slices/citySlice';
 const rootReducer = combineReducers({
 	weatherToday: weatherTodayReducer,
 	weatherForecast: weatherForecastReducer,
-	cities: citiesReducer
+	cities: citiesReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

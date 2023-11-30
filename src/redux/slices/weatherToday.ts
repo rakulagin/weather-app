@@ -21,7 +21,7 @@ const initialState = {
 		windSpeed: 0,
 		maxTemp: 0,
 		minTemp: 0,
-		
+
 		status: 'loading',
 	},
 };
@@ -37,13 +37,13 @@ const weatherTodaySlice = createSlice({
 		});
 		builder.addCase(fetchWeatherToday.fulfilled, (state, action) => {
 			state.weatherToday.data = action.payload;
-			state.weatherToday.temp = action.payload.main.temp
-			state.weatherToday.feelsLike = action.payload.main.feels_like
-			state.weatherToday.pressure = action.payload.main.pressure
-			state.weatherToday.wind = action.payload.wind.deg
-			state.weatherToday.windSpeed = action.payload.wind.speed
-			state.weatherToday.maxTemp = action.payload.main.temp_max
-			state.weatherToday.minTemp = action.payload.main.temp_min
+			state.weatherToday.temp = action.payload.main.temp;
+			state.weatherToday.feelsLike = action.payload.main.feels_like;
+			state.weatherToday.pressure = action.payload.main.pressure;
+			state.weatherToday.wind = action.payload.wind.deg;
+			state.weatherToday.windSpeed = action.payload.wind.speed;
+			state.weatherToday.maxTemp = action.payload.main.temp_max;
+			state.weatherToday.minTemp = action.payload.main.temp_min;
 			state.weatherToday.status = 'loaded';
 		});
 		builder.addCase(fetchWeatherToday.rejected, (state, action) => {

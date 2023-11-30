@@ -29,13 +29,13 @@
 
   svg path {
     fill: rgba(255, 255, 255, 1);
-    transition: fill 0.3s ease-in-out;
+    transition: fill 0.2s ease-in-out;
   }
 
 	&:hover {
 		svg path {
 			fill: rgba(255, 255, 255, 0.5);
-      transition: fill 0.3s ease-in-out;
+      transition: fill 0.2s ease-in-out;
 		}
 	}
 }
@@ -47,10 +47,6 @@
 .arrowRight {
 	right: -10px;
 	transform: rotate(180deg) translateY(50%);
-}
-
-.hidden {
-	display: none;
 }
 
 @media (max-width: 425px) {

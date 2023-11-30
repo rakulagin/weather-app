@@ -19,11 +19,11 @@ export const fetchCities = createAsyncThunk(
 );
 
 export const fetchCityByCords = createAsyncThunk(
-  'cities/getCityByCords',
-  async ({ latitude, longitude }: { latitude: number; longitude: number }) => {
-      const response = await getCityByCords(latitude, longitude);
-			return response
-  }
+	'cities/getCityByCords',
+	async ({ latitude, longitude }: { latitude: number; longitude: number }) => {
+		const response = await getCityByCords(latitude, longitude);
+		return response;
+	}
 );
 
 interface City {
@@ -31,14 +31,14 @@ interface City {
 }
 
 interface CitiesState {
-  data: City[];
-  selectedCity: City;
-  status: string;
-  location: Location;
+	data: City[];
+	selectedCity: City;
+	status: string;
+	location: Location;
 }
 
 interface RootState {
-  cities: CitiesState;
+	cities: CitiesState;
 }
 
 const initialState = {

@@ -34,16 +34,16 @@ export const getCityByCords = async (lat: number, lon: number) => {
 	const token = '1933a6fff5150deb83cc3acc4e6da4545005a216';
 	const query = { lat: lat, lon: lon };
 
-  try {
+	try {
 		const response = await fetch(url, {
-      method: "POST",
-      mode: "cors",
-      headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "Authorization": "Token " + token
-      },
-      body: JSON.stringify(query)
+			method: 'POST',
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+				Authorization: 'Token ' + token,
+			},
+			body: JSON.stringify(query),
 		});
 
 		if (!response.ok) {

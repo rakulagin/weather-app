@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -6,12 +6,10 @@ import classNames from 'classnames';
 
 import { formatWind } from '../../helpers/formatWind';
 import {
-	formatDateTimestamp,
-	formatNowDateTimestamp,
+	formatDateTimestamp
 } from '../../helpers/formatTime';
 
 import TemperatureIcon from '../../assets/icons/temperature.png';
-import SunRain from '../../assets/images/weather/rain.png';
 import PressureIcon from '../../assets/icons/pressure.png';
 import WindIcon from '../../assets/icons/wind.png';
 
@@ -312,7 +310,7 @@ const WeatherBlock: FC<I_Carousel> = ({
 					)}
 				</>
 			) : (
-				<p className={styles.height}></p>
+				<p className={styles.height16}></p>
 			)}
 			{status === 'loaded' ? (
 				<img

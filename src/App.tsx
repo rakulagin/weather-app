@@ -1,5 +1,3 @@
-import React from 'react';
-
 import WeatherModule from './modules/weatherModule';
 
 function App() {

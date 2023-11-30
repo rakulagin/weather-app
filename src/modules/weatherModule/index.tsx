@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
@@ -28,8 +28,8 @@ const WeatherModule = () => {
 	const [isInput, setIsInput] = useState<boolean>(false);
 
 	const handleInputClose = () => {
-		setIsInput(false)
-	}
+		setIsInput(false);
+	};
 
 	const getWeather = async (city: string) => {
 		try {
@@ -95,7 +95,7 @@ const WeatherModule = () => {
 				<div onClick={handleInputClose} className={styles.content}>
 					<div className={styles.top}>
 						<WeatherBlock />
-						<LocationBlock isInput={isInput} setIsInput={setIsInput}  setIsOpen={setIsOpen} />
+						<LocationBlock isInput={isInput} setIsInput={setIsInput} />
 					</div>
 					<Carousel />
 				</div>
