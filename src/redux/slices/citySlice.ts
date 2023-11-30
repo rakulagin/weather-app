@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getCities } from '../../hooks/citiesApi';
+import { getCityByCords } from '../../hooks/citiesApi';
 
 interface City {
 	data?: any;
@@ -17,11 +18,35 @@ export const fetchCities = createAsyncThunk(
 	}
 );
 
+export const fetchCityByCords = createAsyncThunk(
+  'cities/getCityByCords',
+  async ({ latitude, longitude }: { latitude: number; longitude: number }) => {
+      const response = await getCityByCords(latitude, longitude);
+			return response
+  }
+);
+
+interface City {
+	value: string;
+}
+
+interface CitiesState {
+  data: City[];
+  selectedCity: City;
+  status: string;
+  location: Location;
+}
+
+interface RootState {
+  cities: CitiesState;
+}
+
 const initialState = {
 	cities: {
 		data: [],
 		selectedCity: {},
 		status: 'loading',
+		location: {},
 	},
 };
 
@@ -45,6 +70,19 @@ const citiesSlice = createSlice({
 		builder.addCase(fetchCities.rejected, (state, action) => {
 			state.cities.data = [];
 			state.cities.status = 'error';
+		});
+
+		builder.addCase(fetchCityByCords.pending, (state, action) => {
+			state.cities.location = {};
+			state.cities.status = 'loading1';
+		});
+		builder.addCase(fetchCityByCords.fulfilled, (state, action) => {
+			state.cities.location = action.payload.suggestions[0];
+			state.cities.status = 'loaded1';
+		});
+		builder.addCase(fetchCityByCords.rejected, (state, action) => {
+			state.cities.location = {};
+			state.cities.status = 'error1';
 		});
 	},
 });

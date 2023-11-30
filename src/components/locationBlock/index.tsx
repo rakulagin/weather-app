@@ -19,7 +19,7 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
 		useDispatch();
 
-	const { data, selectedCity } = useSelector(
+	const { data, selectedCity, location } = useSelector(
 		(state: any) => state.cities.cities
 	);
 
@@ -62,7 +62,7 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
 							{selectedCity && selectedCity.value ? (
 								<h2>{selectedCity.value}</h2>
 							) : (
-								<h2>Выберите город</h2>
+								<h2 className={styles.height24}>{location.data && location.value}</h2>
 							)}
 						</>
 					) : (
@@ -77,10 +77,10 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
 
 				{selectedCity && selectedCity?.data ? (
 					<p>
-						{selectedCity.data.geo_lat} {selectedCity.data.geo_lat}
+						{selectedCity.data.geo_lat} {selectedCity.data.geo_lon}
 					</p>
 				) : (
-					<p className={styles.height}></p>
+					<p className={styles.height}>{location.data && location.data.geo_lat} {location.data && location.data.geo_lon}</p>
 				)}
 			</div>
 			<div className={styles.subBlock}>

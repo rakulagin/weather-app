@@ -6,7 +6,7 @@ import { AnyAction } from 'redux';
 import { RootState } from '../../redux/rootReducer';
 
 import { fetchWeatherToday } from '../../redux/slices/weatherToday';
-import { fetchCities } from '../../redux/slices/citySlice';
+import { fetchCityByCords } from '../../redux/slices/citySlice';
 
 import WeatherBlock from '../weatherBlock';
 import LocationBlock from '../locationBlock';
@@ -19,7 +19,7 @@ const WeatherModule = () => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
 		useDispatch();
 
-	const { data, selectedCity } = useSelector((state: any) => state.cities.cities);
+	const { data, selectedCity, location } = useSelector((state: any) => state.cities.cities);
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -51,6 +51,32 @@ const WeatherModule = () => {
 			setIsOpen(true);
 		}
 	}, [data]);
+
+	useEffect(() => {
+		if (!!location.data) {
+			getWeather(location.data.city);
+		}
+	}, [location])
+
+	useEffect(() => {
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            dispatch(fetchCityByCords({latitude, longitude}))
+          },
+          (error) => {
+            console.error(`Ошибка при получении местоположения: ${error.message}`);
+          }
+        );
+      } else {
+        console.error('Geolocation не поддерживается вашим браузером.');
+      }
+    };
+
+    getLocation();
+  }, []);
 
 	return (
 		<>
