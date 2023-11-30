@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 
+import classNames from 'classnames';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
@@ -67,9 +69,9 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen, isInput, setIsInput }) 
 					{!isInput ? (
 						<>
 							{selectedCity && selectedCity.value ? (
-								<h2>{selectedCity.value}</h2>
+								<h2 className={styles.title}>{selectedCity.value}</h2>
 							) : (
-								<h2 className={styles.height24}>{location.data && location.value}</h2>
+								<h2 className={classNames(styles.height24, styles.title)}>{location.data && location.value}</h2>
 							)}
 						</>
 					) : (
