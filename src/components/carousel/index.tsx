@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import classNames from 'classnames';
 
 import WeatherBlock from '../weatherBlock';
@@ -13,6 +15,8 @@ interface I_CarouselProps {
 }
 
 const Carousel: FC<I_CarouselProps> = () => {
+const { list } = useSelector((state: any) => state.weatherToday.weatherToday)
+
 	const blockRef = useRef<HTMLDivElement>(null);
 	const windowRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +62,7 @@ const Carousel: FC<I_CarouselProps> = () => {
 	const calculateRatio = () => {
 		if (windowRef.current) {
 			const temp =
-				Math.ceil(windowRef.current.clientWidth / weatherBlockWidth) -
+				Math.floor(windowRef.current.clientWidth / weatherBlockWidth) -
 				windowRef.current.clientWidth / weatherBlockWidth;
 
 			setRatio(temp);
@@ -103,13 +107,16 @@ const Carousel: FC<I_CarouselProps> = () => {
 					<div ref={blockRef}>
 						<WeatherBlock isCarousel={true} />
 					</div>
+					{/* <WeatherBlock isCarousel={true} />
 					<WeatherBlock isCarousel={true} />
 					<WeatherBlock isCarousel={true} />
 					<WeatherBlock isCarousel={true} />
 					<WeatherBlock isCarousel={true} />
 					<WeatherBlock isCarousel={true} />
-					<WeatherBlock isCarousel={true} />
-					<WeatherBlock isCarousel={true} />
+					<WeatherBlock isCarousel={true} /> */}
+					{list && list.map((el: any, index: any)  =>
+						<WeatherBlock ref={blockRef} key={index} isCarousel={true} />
+					)}
 				</div>
 			</div>
 			<div

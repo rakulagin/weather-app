@@ -12,6 +12,17 @@
   gap: 6px;
 }
 
+.input {
+  background: none;
+  border: none;
+  border-bottom: 3px solid black;
+  outline: none;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: end;
+  width: 155px;
+}
+
 button {
   font-size: 18px;
   padding: 5px 10px;

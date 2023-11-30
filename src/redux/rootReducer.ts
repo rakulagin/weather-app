@@ -1,8 +1,12 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { weatherReducer } from './slices/weather';
+import { weatherTodayReducer } from './slices/weatherToday';
+import { weatherForecastReducer } from './slices/weatherForecast';
+import { citiesReducer } from './slices/citySlice';
 
 const rootReducer = combineReducers({
-	weather: weatherReducer,
+	weatherToday: weatherTodayReducer,
+	weatherForecast: weatherForecastReducer,
+	cities: citiesReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
