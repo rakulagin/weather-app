@@ -5,9 +5,13 @@ import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import { formatWind } from '../../helpers/formatWind';
+import {
+	formatDateTimestamp,
+	formatNowDateTimestamp,
+} from '../../helpers/formatTime';
 
-import SunRain from '../../assets/images/weather/rain.png';
 import TemperatureIcon from '../../assets/icons/temperature.png';
+import SunRain from '../../assets/images/weather/rain.png';
 import PressureIcon from '../../assets/icons/pressure.png';
 import WindIcon from '../../assets/icons/wind.png';
 
@@ -15,39 +19,75 @@ import styles from './weatherBlock.module.scss';
 
 interface I_Carousel {
 	isCarousel?: boolean;
+	isToday?: boolean;
+	weatherMini?: any;
+	tempMini?: any;
+	timeMini?: any;
+	windMini?: any;
 	ref?: any;
 }
 
-const WeatherBlock: FC<I_Carousel> = ({ isCarousel, ref }) => {
-	const {
-		data,
-		temp,
-		feelsLike,
-		pressure,
-		wind,
-		windSpeed,
-		maxTemp,
-		minTemp,
-		status,
-	} = useSelector((state: any) => state.weatherToday.weatherToday);
+const WeatherBlock: FC<I_Carousel> = ({
+	weatherMini,
+	isCarousel,
+	tempMini,
+	timeMini,
+	windMini,
+	isToday,
+	ref,
+}) => {
+	const { windSpeed, feelsLike, pressure, status, data, temp, wind } =
+		useSelector((state: any) => state.weatherToday.weatherToday);
 
 	return (
 		<div
 			ref={ref}
 			className={classNames(
 				styles.mainBlock,
-				isCarousel ? styles.blockInCarousel : styles.block, status !== 'loaded' && styles.blur
+				isCarousel ? styles.blockInCarousel : styles.block,
+				status !== 'loaded' && styles.blur
 			)}
 		>
-			<h2>Воскресенье, 17 Сетнября</h2>
-			{status === 'loaded' ? <p>{status === 'loaded' && data.weather[0].description}</p> : <p className={styles.height}></p>}
+			{isToday ? (
+				<h2>{data && formatDateTimestamp(data.dt)}</h2>
+			) : isCarousel ? (
+				<h2>{formatDateTimestamp(timeMini)}</h2>
+			) : (
+				<h2>{data && formatDateTimestamp(data.dt)}</h2>
+			)}
+			{status === 'loaded' ? (
+				<>
+					{isToday ? (
+						<p>{data && data.weather[0].description}</p>
+					) : isCarousel ? (
+						<p>{weatherMini && weatherMini[0].description}</p>
+					) : (
+						<p>{status === 'loaded' && data.weather[0].description}</p>
+					)}
+				</>
+			) : (
+				<p className={styles.height}></p>
+			)}
 			<img className={styles.weatherPick} src={SunRain} alt='weather' />
-			{isCarousel ? (
+			{isToday ? (
 				<div className={styles.metricsInCarousel}>
-					<p>Днем {maxTemp} С</p>
-					<p className={styles.darken}>Ночью {minTemp} С</p>
+					<p>Температура {temp && temp} С</p>
+					<p className={styles.darken}>
+						Ощущается как {feelsLike && feelsLike} С
+					</p>
 					<p>
-						Ветер: {formatWind(wind)} {windSpeed} м/с
+						Ветер: {wind && formatWind(wind)} {windSpeed && windSpeed} м/с
+					</p>
+				</div>
+			) : isCarousel ? (
+				<div className={styles.metricsInCarousel}>
+					<p>Температура {tempMini && tempMini.temp_min} С</p>
+					<p className={styles.darken}>
+						Ощущается как {tempMini && tempMini.temp_max} С
+					</p>
+					<p>
+						Ветер: {windMini && formatWind(windMini.deg)}{' '}
+						{windMini && windMini.speed} м/с
 					</p>
 				</div>
 			) : (

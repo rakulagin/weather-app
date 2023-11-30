@@ -8,14 +8,16 @@ import WeatherBlock from '../weatherBlock';
 
 import IconArrow from '../custom/icon-arrow';
 
-import styles from './carousel.module.css';
+import styles from './carousel.module.scss';
 
 interface I_CarouselProps {
 	items?: React.ReactNode[];
 }
 
 const Carousel: FC<I_CarouselProps> = () => {
-const { list } = useSelector((state: any) => state.weatherToday.weatherToday)
+	const { list } = useSelector(
+		(state: any) => state.weatherForecast.weatherForecast
+	);
 
 	const blockRef = useRef<HTMLDivElement>(null);
 	const windowRef = useRef<HTMLDivElement>(null);
@@ -34,18 +36,18 @@ const { list } = useSelector((state: any) => state.weatherToday.weatherToday)
 	};
 
 	const handleRightClick = () => {
-		const firstClick = offset === 0 && weatherBlockWidth >= 303 ? weatherBlockWidth * ratio : 0;
+		const firstClick =
+			offset === 0 && weatherBlockWidth >= 303 ? weatherBlockWidth * ratio : 0;
 		const newOffset = offset - weatherBlockWidth - firstClick;
 		const value = Math.max(newOffset, maxOffset);
 
 		setOffset(value);
-
 	};
 
 	const calculateMaxOffset = () => {
 		if (windowRef.current) {
 			const temp =
-				-(7 - windowRef.current.clientWidth / weatherBlockWidth) *
+				-(27 - windowRef.current.clientWidth / weatherBlockWidth) *
 				weatherBlockWidth;
 			setMaxOffset(temp);
 		}
@@ -56,7 +58,6 @@ const { list } = useSelector((state: any) => state.weatherToday.weatherToday)
 			const blockWidth = blockRef.current.clientWidth;
 			setWeatherBlockWidth(blockWidth + 16);
 		}
-		
 	};
 
 	const calculateRatio = () => {
@@ -81,7 +82,7 @@ const { list } = useSelector((state: any) => state.weatherToday.weatherToday)
 
 		const handleResize = () => {
 			calculateBlockWidth();
-			setOffset(0)
+			setOffset(0);
 		};
 
 		window.addEventListener('resize', handleResize);
@@ -105,18 +106,19 @@ const { list } = useSelector((state: any) => state.weatherToday.weatherToday)
 					style={{ transform: `translateX(${offset}px)` }}
 				>
 					<div ref={blockRef}>
-						<WeatherBlock isCarousel={true} />
+						<WeatherBlock isToday={true} isCarousel={true} />
 					</div>
-					{/* <WeatherBlock isCarousel={true} />
-					<WeatherBlock isCarousel={true} />
-					<WeatherBlock isCarousel={true} />
-					<WeatherBlock isCarousel={true} />
-					<WeatherBlock isCarousel={true} />
-					<WeatherBlock isCarousel={true} />
-					<WeatherBlock isCarousel={true} /> */}
-					{list && list.map((el: any, index: any)  =>
-						<WeatherBlock ref={blockRef} key={index} isCarousel={true} />
-					)}
+					{list &&
+						list.map((el: any, index: any) => (
+							<WeatherBlock
+								weatherMini={el.weather}
+								tempMini={el.main}
+								windMini={el.wind}
+								isCarousel={true}
+								timeMini={el.dt}
+								key={index}
+							/>
+						))}
 				</div>
 			</div>
 			<div

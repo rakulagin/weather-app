@@ -18,7 +18,7 @@ export const getWeatherToday = async (city: string) => {
 export const getWeatherForecast = async (city: string) => {
 	try {
 	  const response = await axios.get(
-	    `${apiUrl}/forecast?q=самара&units=Metric&appid=${api_key}&lang=ru`
+	    `${apiUrl}/forecast?q=${city}&units=Metric&appid=${api_key}&lang=ru`
 	  );
 
 	  return response;

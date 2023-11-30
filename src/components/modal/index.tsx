@@ -18,7 +18,6 @@ const Modal: FC<I_Modal> = ({ setIsOpen }) => {
 	const { data, selectedCity } = useSelector((state: any) => state.cities.cities)
 
 	const handleSelectCity = (city: any) => {
-		console.log('Выбран город:', JSON.stringify(city, null, 2));
 		dispatch(setSelectedCity(city));
 		setIsOpen(false);
 	};

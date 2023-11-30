@@ -6,6 +6,7 @@ import { AnyAction } from 'redux';
 import { RootState } from '../../redux/rootReducer';
 
 import { fetchWeatherToday } from '../../redux/slices/weatherToday';
+import { fetchWeatherForecast } from '../../redux/slices/weatherForecast';
 import { fetchCityByCords } from '../../redux/slices/citySlice';
 
 import WeatherBlock from '../weatherBlock';
@@ -31,18 +32,19 @@ const WeatherModule = () => {
 		}
 	};
 
-	const getWeatherForecast = async () => {
-		// try {
-		// 	await dispatch(fetchWeatherForecast());
-		// } catch (error) {
-		// 	console.error('Error getting weather and forecast:', error);
-		// }
+	const getWeatherForecast = async (city: string) => {
+		try {
+			await dispatch(fetchWeatherForecast(city));
+		} catch (error) {
+			console.error('Error getting weather and forecast:', error);
+		}
 	};
 
 	useEffect(() => {
 		if(!!selectedCity.data) {
+			console.log('selectedCity.data', selectedCity.data)
 			getWeather(selectedCity.data.city);
-		// getWeatherForecast()
+		getWeatherForecast(selectedCity.data.city)
 		}
 	}, [selectedCity]);
 
@@ -55,6 +57,7 @@ const WeatherModule = () => {
 	useEffect(() => {
 		if (!!location.data) {
 			getWeather(location.data.city);
+			getWeatherForecast(location.data.city)
 		}
 	}, [location])
 

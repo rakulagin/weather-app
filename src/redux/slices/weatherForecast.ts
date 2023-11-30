@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { getWeatherForecast } from '../../hooks/weatherApi';
 
-export const fetchWeatherForecast = createAsyncThunk('weatherForecast/fetchWeatherForecast', async () => {
-	const  {data}  = await getWeatherForecast("123");
+export const fetchWeatherForecast = createAsyncThunk('weatherForecast/fetchWeatherForecast', async (city: string) => {
+	const  {data}  = await getWeatherForecast(city);
 	console.log('data', data)
 	return data
 })
@@ -25,7 +25,7 @@ const weatherForecastSlice = createSlice({
 			state.weatherForecast.status = 'loading';
 		});
 		builder.addCase(fetchWeatherForecast.fulfilled, (state, action) => {
-			// state.weatherToday.list = action.payload.list;
+			state.weatherForecast.list = action.payload.list;
 			// state.weatherToday.temp = action.payload.main.temp
 			// state.weatherToday.feelsLike = action.payload.main.feels_like
 			// state.weatherToday.pressure = action.payload.main.pressure
