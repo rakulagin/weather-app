@@ -32,6 +32,10 @@ button {
   border-radius: 4px;
 }
 
+.height {
+  height: 16px;
+}
+
 @media (max-width: 768px) {
 	.block {
     flex-direction: row;

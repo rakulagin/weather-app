@@ -15,14 +15,12 @@ interface I_Modal {
 
 const Modal: FC<I_Modal> = ({ setIsOpen }) => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> = useDispatch();
-	const { data } = useSelector((state: any) => state.cities.cities)
+	const { data, selectedCity } = useSelector((state: any) => state.cities.cities)
 
-	// const selecte
-
-	const handleSelectCity = (selectedCity: any) => {
-		console.log(`Выбран город: ${selectedCity}`);
-		console.log('Выбран город:', JSON.stringify(selectedCity, null, 2));
-		dispatch(setSelectedCity(selectedCity));
+	const handleSelectCity = (city: any) => {
+		console.log('Выбран город:', JSON.stringify(city, null, 2));
+		dispatch(setSelectedCity(city));
+		setIsOpen(false);
 	};
 
 	const handleCloseClick = () => {

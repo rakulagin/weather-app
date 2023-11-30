@@ -11,7 +11,7 @@ import TemperatureIcon from '../../assets/icons/temperature.png';
 import PressureIcon from '../../assets/icons/pressure.png';
 import WindIcon from '../../assets/icons/wind.png';
 
-import styles from './weatherBlock.module.css';
+import styles from './weatherBlock.module.scss';
 
 interface I_Carousel {
 	isCarousel?: boolean;
@@ -36,11 +36,11 @@ const WeatherBlock: FC<I_Carousel> = ({ isCarousel, ref }) => {
 			ref={ref}
 			className={classNames(
 				styles.mainBlock,
-				isCarousel ? styles.blockInCarousel : styles.block
+				isCarousel ? styles.blockInCarousel : styles.block, status !== 'loaded' && styles.blur
 			)}
 		>
 			<h2>Воскресенье, 17 Сетнября</h2>
-			<p>{status === 'loaded' && data.weather[0].description}</p>
+			{status === 'loaded' ? <p>{status === 'loaded' && data.weather[0].description}</p> : <p className={styles.height}></p>}
 			<img className={styles.weatherPick} src={SunRain} alt='weather' />
 			{isCarousel ? (
 				<div className={styles.metricsInCarousel}>

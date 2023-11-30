@@ -1,9 +1,10 @@
 import React, { FC, useState, useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
 import { RootState } from '../../redux/rootReducer';
+
 import { fetchCities } from '../../redux/slices/citySlice';
 
 import useDebounce from '../../hooks/useDebounce';
@@ -16,7 +17,11 @@ interface I_LocationBlock {
 
 const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
-	useDispatch();
+		useDispatch();
+
+	const { data, selectedCity } = useSelector(
+		(state: any) => state.cities.cities
+	);
 
 	const [isInput, setIsInput] = useState<boolean>(false);
 	const [inputValue, setInputValue] = useState<string>('');
@@ -40,8 +45,12 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
 	};
 
 	useEffect(()=> {
-		getCities(debounce)
-	}, [debounce])
+		setIsInput(false);
+	}, [selectedCity])
+
+	useEffect(() => {
+		getCities(debounce);
+	}, [debounce]);
 
 	return (
 		<div className={styles.block}>
@@ -49,7 +58,13 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
 				<p>Россия,</p>
 				<div>
 					{!isInput ? (
-						<h2>Самара</h2>
+						<>
+							{selectedCity && selectedCity.value ? (
+								<h2>{selectedCity.value}</h2>
+							) : (
+								<h2>Выберите город</h2>
+							)}
+						</>
 					) : (
 						<input
 							value={inputValue}
@@ -60,7 +75,13 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
 					)}
 				</div>
 
-				<p>50.100202 50.100202</p>
+				{selectedCity && selectedCity?.data ? (
+					<p>
+						{selectedCity.data.geo_lat} {selectedCity.data.geo_lat}
+					</p>
+				) : (
+					<p className={styles.height}></p>
+				)}
 			</div>
 			<div className={styles.subBlock}>
 				<h2>15:12:17</h2>

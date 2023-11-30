@@ -1,21 +1,9 @@
 .block {
   width: 400px;
   padding: 10px 20px;
-  /* border: 3px solid rgba(0,0,0,0.4);
-  border-radius: 8px;
-  background-color: rgba(0,0,0,0.4);
-  backdrop-filter: blur(3px);
-  color: rgba(255,255,255,0.8);
-  font-weight: 700;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px; */
 }
 
 .mainBlock {
-  /* width: 400px;
-  padding: 10px 20px; */
   border: 3px solid rgba(0,0,0,0.4);
   border-radius: 8px;
   background-color: rgba(0,0,0,0.4);
@@ -26,6 +14,11 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
+}
+
+.blur {
+  filter: blur(5px);
+  transition: filter 2s ease;
 }
 
 .blockInCarousel {
@@ -41,6 +34,10 @@ h2 {
   width: 100px;
   height: 100px;
   margin: 15px 0;
+}
+
+.height {
+  height: 16px;
 }
 
 .metrics {

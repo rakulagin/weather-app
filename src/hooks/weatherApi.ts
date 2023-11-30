@@ -6,7 +6,7 @@ const api_key = '91a0432703258344dff18a8f3e884c7b';
 export const getWeatherToday = async (city: string) => {
 	try {
 		const response = await axios.get(
-			`${apiUrl}/weather?q=самара&units=Metric&appid=${api_key}&lang=ru`
+			`${apiUrl}/weather?q=${city}&units=Metric&appid=${api_key}&lang=ru`
 		);
 		return response;
 	} catch (error) {

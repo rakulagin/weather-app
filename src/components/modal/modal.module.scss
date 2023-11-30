@@ -55,10 +55,17 @@
   min-height: 40px;
   border: 1px solid black;
   padding: 5px;
+  overflow: hidden;
   
   &:hover {
     color: rgba(255,255,255,0.8);
     border-color: rgba(255,255,255,0.8);
     cursor: pointer;
+  }
+}
+
+@media (max-width: 450px) {
+  .modal {
+    width: 300px;
   }
 }

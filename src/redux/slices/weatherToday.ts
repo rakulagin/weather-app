@@ -4,8 +4,8 @@ import { getWeatherToday } from '../../hooks/weatherApi';
 
 export const fetchWeatherToday = createAsyncThunk(
 	'weatherToday/fetchWeatherToday',
-	async () => {
-		const { data } = await getWeatherToday('123');
+	async (city: string) => {
+		const { data } = await getWeatherToday(city);
 		return data;
 	}
 );
