@@ -49,11 +49,11 @@ const WeatherBlock: FC<I_Carousel> = ({
 			)}
 		>
 			{isToday ? (
-				<h2>{data && formatDateTimestamp(data.dt)}</h2>
+				<h2 className={styles.height48}>{data.dt && formatDateTimestamp(data.dt)}</h2>
 			) : isCarousel ? (
-				<h2>{formatDateTimestamp(timeMini)}</h2>
+				<h2 className={styles.height48}>{formatDateTimestamp(timeMini)}</h2>
 			) : (
-				<h2>{data && formatDateTimestamp(data.dt)}</h2>
+				<h2 className={styles.height48}>{data.dt && formatDateTimestamp(data.dt)}</h2>
 			)}
 			{status === 'loaded' ? (
 				<>

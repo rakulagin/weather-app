@@ -3,6 +3,7 @@
   align-items: flex-end;
   flex-direction: column;
   gap: 6px;
+  // min-height: 140px;
 }
 
 .subBlock {
@@ -10,6 +11,10 @@
   align-items: flex-end;
   flex-direction: column;
   gap: 6px;
+}
+
+h2 {
+  text-align: end;
 }
 
 .input {
@@ -30,6 +35,16 @@ button {
   outline: none;
   border: 3px solid rgba(0,0,0,0.5);
   border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+
+  &:active {
+    outline: 2px solid rgba(0,0,0,0.5);
+  }
 }
 
 .height {
@@ -37,16 +52,25 @@ button {
 }
 
 .height24 {
-  height: 24px;
+  min-height: 24px;
 }
 
 @media (max-width: 768px) {
 	.block {
     flex-direction: row;
     justify-content: space-between;
+    height: auto;
 
     & :first-child  {
       align-items: baseline;
     }
 	}
+
+  .subBlock {
+    align-self: baseline;
+  }
+
+  h2 {
+    text-align: start;
+  }
 }

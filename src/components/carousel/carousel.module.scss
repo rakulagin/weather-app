@@ -1,42 +1,54 @@
 .mainContainer {
-position: relative;
+	position: relative;
 }
 
 .carouselContainer {
-   display: flex;
-  position: relative;
-  overflow-x: hidden;
-  width: calc(100% - 70px);
-  margin: 0 auto;
+	display: flex;
+	position: relative;
+	overflow-x: hidden;
+	width: calc(100% - 70px);
+	margin: 0 auto;
 }
 
 .carousel {
-  display: flex;
-  gap: 16px;
-  position: relative;
-  width: fit-content;
-  white-space: nowrap;
-  transition: transform 0.5s ease;
+	display: flex;
+	gap: 16px;
+	position: relative;
+	width: fit-content;
+	white-space: nowrap;
+	transition: transform 0.5s ease;
 }
 
 .arrow {
-  width: 35px;
-  height: 35px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
+	width: 35px;
+	height: 35px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
+
+  svg path {
+    fill: rgba(255, 255, 255, 1);
+    transition: fill 0.3s ease-in-out;
+  }
+
+	&:hover {
+		svg path {
+			fill: rgba(255, 255, 255, 0.5);
+      transition: fill 0.3s ease-in-out;
+		}
+	}
 }
 
-.nextBtn {
-  left: 0px;
+.arrowLeft {
+	left: -10px;
 }
 
 .arrowRight {
-  right: 0px;
-  transform: rotate(180deg) translateY(50%);
+	right: -10px;
+	transform: rotate(180deg) translateY(50%);
 }
 
 .hidden {
-  display: none;
+	display: none;
 }

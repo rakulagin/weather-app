@@ -9,10 +9,10 @@ import { fetchWeatherToday } from '../../redux/slices/weatherToday';
 import { fetchWeatherForecast } from '../../redux/slices/weatherForecast';
 import { fetchCityByCords } from '../../redux/slices/citySlice';
 
-import WeatherBlock from '../weatherBlock';
-import LocationBlock from '../locationBlock';
-import Carousel from '../carousel';
-import Modal from '../modal';
+import WeatherBlock from '../../components/weatherBlock';
+import LocationBlock from '../../components/locationBlock';
+import Carousel from '../../components/carousel';
+import Modal from '../../components/modal';
 
 import styles from './weatherModule.module.scss';
 
@@ -20,9 +20,16 @@ const WeatherModule = () => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
 		useDispatch();
 
-	const { data, selectedCity, location } = useSelector((state: any) => state.cities.cities);
+	const { data, selectedCity, location } = useSelector(
+		(state: any) => state.cities.cities
+	);
 
 	const [isOpen, setIsOpen] = useState(false);
+	const [isInput, setIsInput] = useState<boolean>(false);
+
+	const handleInputClose = () => {
+		setIsInput(false)
+	}
 
 	const getWeather = async (city: string) => {
 		try {
@@ -41,10 +48,9 @@ const WeatherModule = () => {
 	};
 
 	useEffect(() => {
-		if(!!selectedCity.data) {
-			console.log('selectedCity.data', selectedCity.data)
+		if (!!selectedCity.data) {
 			getWeather(selectedCity.data.city);
-		getWeatherForecast(selectedCity.data.city)
+			getWeatherForecast(selectedCity.data.city);
 		}
 	}, [selectedCity]);
 
@@ -57,42 +63,44 @@ const WeatherModule = () => {
 	useEffect(() => {
 		if (!!location.data) {
 			getWeather(location.data.city);
-			getWeatherForecast(location.data.city)
+			getWeatherForecast(location.data.city);
 		}
-	}, [location])
+	}, [location]);
 
 	useEffect(() => {
-    const getLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            dispatch(fetchCityByCords({latitude, longitude}))
-          },
-          (error) => {
-            console.error(`Ошибка при получении местоположения: ${error.message}`);
-          }
-        );
-      } else {
-        console.error('Geolocation не поддерживается вашим браузером.');
-      }
-    };
+		const getLocation = () => {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					position => {
+						const { latitude, longitude } = position.coords;
+						dispatch(fetchCityByCords({ latitude, longitude }));
+					},
+					error => {
+						console.error(
+							`Ошибка при получении местоположения: ${error.message}`
+						);
+					}
+				);
+			} else {
+				console.error('Geolocation не поддерживается браузером.');
+			}
+		};
 
-    getLocation();
-  }, []);
+		getLocation();
+	}, []);
 
 	return (
 		<>
 			<div className={styles.main}>
-				<div className={styles.content}>
+				<div onClick={handleInputClose} className={styles.content}>
 					<div className={styles.top}>
 						<WeatherBlock />
-						<LocationBlock setIsOpen={setIsOpen} />
+						<LocationBlock isInput={isInput} setIsInput={setIsInput}  setIsOpen={setIsOpen} />
 					</div>
 					<Carousel />
 				</div>
 			</div>
-			{isOpen && <Modal setIsOpen={setIsOpen} />}
+			{isOpen && isInput && <Modal setIsOpen={setIsOpen} />}
 		</>
 	);
 };
