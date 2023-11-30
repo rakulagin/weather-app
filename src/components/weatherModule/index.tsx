@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
 
 import { fetchWeatherToday } from '../../redux/slices/weatherToday';
-import { fetchCities } from '../../redux/slices/citySlice';
 import { RootState } from '../../redux/rootReducer';
 
 import WeatherBlock from '../weatherBlock';
 import LocationBlock from '../locationBlock';
 import Carousel from '../carousel';
-import Modal from '../modal/modal';
+import Modal from '../modal';
 
 import styles from './weatherModule.module.css';
-
-import { formatWind } from '../../helpers/formatWind';
-import { getCities } from '../../hooks/citiesApi';
 
 const WeatherModule = () => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
 		useDispatch();
+
+	const { data } = useSelector((state: any) => state.cities.cities);
+
+	console.log('data', data);
 
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -40,18 +40,16 @@ const WeatherModule = () => {
 		// }
 	};
 
-	const getCities = async () => {
-		try {
-			await dispatch(fetchCities('сам'));
-		} catch (error) {
-			console.error('Error getting weather and forecast:', error);
-		}
-	};
-
 	useEffect(() => {
 		// getWeather();
 		// getWeatherForecast()
 	}, []);
+
+	useEffect(() => {
+		if (!!data.length) {
+			setIsOpen(true);
+		}
+	}, [data]);
 
 	return (
 		<>
@@ -59,7 +57,6 @@ const WeatherModule = () => {
 				<div className={styles.content}>
 					<div className={styles.top}>
 						<WeatherBlock />
-						<button onClick={getCities}>123123123</button>
 						<LocationBlock setIsOpen={setIsOpen} />
 					</div>
 					<Carousel />

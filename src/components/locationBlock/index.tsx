@@ -1,4 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { AnyAction } from 'redux';
+import { RootState } from '../../redux/rootReducer';
+import { fetchCities } from '../../redux/slices/citySlice';
 
 import useDebounce from '../../hooks/useDebounce';
 
@@ -9,6 +15,9 @@ interface I_LocationBlock {
 }
 
 const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
+	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
+	useDispatch();
+
 	const [isInput, setIsInput] = useState<boolean>(false);
 	const [inputValue, setInputValue] = useState<string>('');
 
@@ -18,15 +27,21 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen }) => {
 		setInputValue(e.target.value);
 	};
 
-	console.log('debounce', debounce);
-
-	const handleButtonClick = () => {
-		setIsOpen(true);
-	};
-
 	const handleInputClick = () => {
 		setIsInput(true);
 	};
+
+	const getCities = async (city: string) => {
+		try {
+			await dispatch(fetchCities(city));
+		} catch (error) {
+			console.error('Error getting weather and forecast:', error);
+		}
+	};
+
+	useEffect(()=> {
+		getCities(debounce)
+	}, [debounce])
 
 	return (
 		<div className={styles.block}>
