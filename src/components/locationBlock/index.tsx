@@ -19,10 +19,13 @@ interface I_LocationBlock {
 	setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setIsInput: React.Dispatch<React.SetStateAction<boolean>>;
 	isInput: boolean;
-
 }
 
-const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen, isInput, setIsInput }) => {
+const LocationBlock: FC<I_LocationBlock> = ({
+	setIsOpen,
+	isInput,
+	setIsInput,
+}) => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
 		useDispatch();
 
@@ -35,13 +38,12 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen, isInput, setIsInput }) 
 
 	const debounce = useDebounce(inputValue, 1000);
 
-
-
 	const handleChange = (e: any) => {
 		setInputValue(e.target.value);
 	};
 
-	const handleInputClick = () => {
+	const handleInputClick = (event: React.MouseEvent) => {
+		event.stopPropagation();
 		setIsInput(true);
 	};
 
@@ -53,16 +55,16 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen, isInput, setIsInput }) 
 		}
 	};
 
-	useEffect(()=> {
+	useEffect(() => {
 		setIsInput(false);
-	}, [selectedCity])
+	}, [selectedCity]);
 
 	useEffect(() => {
 		getCities(debounce);
 	}, [debounce]);
 
 	return (
-		<div onClick={(event: React.MouseEvent) => event.stopPropagation()} className={styles.block}>
+		<div className={styles.block}>
 			<div className={styles.subBlock}>
 				<p>Россия,</p>
 				<div>
@@ -71,11 +73,14 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen, isInput, setIsInput }) 
 							{selectedCity && selectedCity.value ? (
 								<h2 className={styles.title}>{selectedCity.value}</h2>
 							) : (
-								<h2 className={classNames(styles.height24, styles.title)}>{location.data && location.value}</h2>
+								<h2 className={classNames(styles.height24, styles.title)}>
+									{location.data && location.value}
+								</h2>
 							)}
 						</>
 					) : (
 						<input
+							onClick={(event: React.MouseEvent) => event.stopPropagation()}
 							value={inputValue}
 							onChange={handleChange}
 							className={styles.input}
@@ -89,12 +94,15 @@ const LocationBlock: FC<I_LocationBlock> = ({ setIsOpen, isInput, setIsInput }) 
 						{selectedCity.data.geo_lat} {selectedCity.data.geo_lon}
 					</p>
 				) : (
-					<p className={styles.height}>{location.data && location.data.geo_lat} {location.data && location.data.geo_lon}</p>
+					<p className={styles.height}>
+						{location.data && location.data.geo_lat}{' '}
+						{location.data && location.data.geo_lon}
+					</p>
 				)}
 			</div>
 			<div className={styles.subBlock}>
 				<h2>{getCurrentTime()}</h2>
-				<button onClick={handleInputClick}>Изменить</button>
+				<button onClick={event => handleInputClick(event)}>Изменить</button>
 			</div>
 		</div>
 	);
