@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import classNames from 'classnames';
 
 import SunRain from '../../assets/images/weather/rain.png';
@@ -14,12 +16,19 @@ interface I_Carousel {
 }
 
 const WeatherBlock: FC<I_Carousel> = ({ isCarousel }) => {
+	const { data, status } = useSelector(
+		(state: any) => state.weather.weatherToday
+	);
+
 	return (
 		<div
-			className={classNames(styles.mainBlock, isCarousel ? styles.blockInCarousel : styles.block)}
+			className={classNames(
+				styles.mainBlock,
+				isCarousel ? styles.blockInCarousel : styles.block
+			)}
 		>
 			<h2>Воскресенье, 17 Сетнября</h2>
-			<p>облачно с прояснениями</p>
+			<p>{status === 'loaded' && data.weather[0].description}</p>
 			<img className={styles.weatherPick} src={SunRain} alt='weather' />
 			{isCarousel ? (
 				<div className={styles.metricsInCarousel}>
@@ -36,8 +45,8 @@ const WeatherBlock: FC<I_Carousel> = ({ isCarousel }) => {
 							alt='temperature icon'
 						/>
 						<div>
-							<p>За окном 14 С</p>
-							<p>Ощущается как 12 С</p>
+							<p>За окном {data?.main?.temp} С</p>
+							<p>Ощущается как {data?.main?.feels_like} С</p>
 						</div>
 					</div>
 					<div className={styles.metrics}>
@@ -47,7 +56,7 @@ const WeatherBlock: FC<I_Carousel> = ({ isCarousel }) => {
 							alt='pressure icon'
 						/>
 						<div>
-							<p>Давление 773 мм. рт. ст.</p>
+							<p>Давление {data?.main?.pressure} мм. рт. ст.</p>
 						</div>
 					</div>
 					<div className={styles.metrics}>

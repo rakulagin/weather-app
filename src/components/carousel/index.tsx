@@ -18,27 +18,33 @@ const Carousel: FC<I_CarouselProps> = () => {
 
 	const [weatherBlockWidth, setWeatherBlockWidth] = useState(0);
 	const [offset, setOffset] = useState(0);
-
-
-	// const maxWidth = -(weatherBlockWidth * 7);
-	const maxWidth = -724
-
-	// console.log('offset', offset)
-	// console.log('maxWidth', maxWidth)
+	const [maxOffset, setMaxOffset] = useState(0);
+	const [ratio, setRatio] = useState(0);
 
 	const handleLeftClick = () => {
-		setOffset((currentOffset: number) => {
-			const newOffset = currentOffset + weatherBlockWidth;
-			return Math.min(newOffset, 0);
-		});
+		const firstClick = offset === maxOffset ? weatherBlockWidth * ratio : 0;
+		const newOffset = offset + weatherBlockWidth + firstClick;
+		const value = Math.min(newOffset, 0);
+
+		setOffset(value);
 	};
 
 	const handleRightClick = () => {
-		setOffset((currentOffset: number) => {
-			const newOffset = currentOffset - weatherBlockWidth;
-			console.log(newOffset);
-			return Math.max(newOffset, maxWidth);
-		});
+		const firstClick = offset === 0 && weatherBlockWidth >= 303 ? weatherBlockWidth * ratio : 0;
+		const newOffset = offset - weatherBlockWidth - firstClick;
+		const value = Math.max(newOffset, maxOffset);
+
+		setOffset(value);
+
+	};
+
+	const calculateMaxOffset = () => {
+		if (windowRef.current) {
+			const temp =
+				-(7 - windowRef.current.clientWidth / weatherBlockWidth) *
+				weatherBlockWidth;
+			setMaxOffset(temp);
+		}
 	};
 
 	const calculateBlockWidth = () => {
@@ -46,22 +52,32 @@ const Carousel: FC<I_CarouselProps> = () => {
 			const blockWidth = blockRef.current.clientWidth;
 			setWeatherBlockWidth(blockWidth + 16);
 		}
+		
 	};
 
-	const calculateCarouselWidth = () => {
+	const calculateRatio = () => {
 		if (windowRef.current) {
-			const windowWidth = windowRef.current.clientWidth;
+			const temp =
+				Math.ceil(windowRef.current.clientWidth / weatherBlockWidth) -
+				windowRef.current.clientWidth / weatherBlockWidth;
 
-			// console.log('windowWidth', windowWidth)
+			setRatio(temp);
 		}
 	};
 
 	useEffect(() => {
+		calculateMaxOffset();
+		calculateRatio();
+	}, [weatherBlockWidth, windowRef, offset]);
+
+	useEffect(() => {
 		calculateBlockWidth();
-		calculateCarouselWidth()
+		calculateMaxOffset();
+		calculateRatio();
 
 		const handleResize = () => {
 			calculateBlockWidth();
+			setOffset(0)
 		};
 
 		window.addEventListener('resize', handleResize);
@@ -70,15 +86,16 @@ const Carousel: FC<I_CarouselProps> = () => {
 			window.removeEventListener('resize', handleResize);
 		};
 	}, []);
+
 	return (
-		<div ref={windowRef} className={styles.mainContainer}>
+		<div className={styles.mainContainer}>
 			<div
 				onClick={handleLeftClick}
 				className={classNames(styles.arrow, styles.arrowLeft)}
 			>
-				<IconArrow/>
+				<IconArrow />
 			</div>
-			<div className={styles.carouselContainer}>
+			<div ref={windowRef} className={styles.carouselContainer}>
 				<div
 					className={styles.carousel}
 					style={{ transform: `translateX(${offset}px)` }}
@@ -99,7 +116,7 @@ const Carousel: FC<I_CarouselProps> = () => {
 				onClick={handleRightClick}
 				className={classNames(styles.arrow, styles.arrowRight)}
 			>
-				<IconArrow/>
+				<IconArrow />
 			</div>
 		</div>
 	);

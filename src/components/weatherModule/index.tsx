@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { getWeatherByCity } from '../../hooks/weatherApi';
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { AnyAction } from 'redux';
+
+import { fetchWeather } from '../../redux/slices/weather';
+import { RootState } from '../../redux/rootReducer';
 
 import WeatherBlock from '../weatherBlock';
 import LocationBlock from '../locationBlock';
@@ -10,17 +15,22 @@ import Modal from '../modal/modal';
 import styles from './weatherModule.module.css';
 
 const WeatherModule = () => {
+	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
+		useDispatch();
+
 	const [isOpen, setIsOpen] = useState(false);
 
-	const test = async () => {
+	const getWeather = async () => {
 		try {
-      const weatherData = await getWeatherByCity("456");
-console.log('weatherData', weatherData)
+			await dispatch(fetchWeather());
+		} catch (error) {
+			console.error('Error getting weather and forecast:', error);
+		}
+	};
 
-    } catch (error) {
-      console.error('Error getting weather and forecast:', error);
-    }
-	}
+	// useEffect(() => {
+	// 	getWeather();
+	// }, []);
 
 	return (
 		<>
@@ -28,7 +38,6 @@ console.log('weatherData', weatherData)
 				<div className={styles.content}>
 					<div className={styles.top}>
 						<WeatherBlock />
-						<button onClick={test}>123123123</button>
 						<LocationBlock setIsOpen={setIsOpen} />
 					</div>
 					<Carousel />
