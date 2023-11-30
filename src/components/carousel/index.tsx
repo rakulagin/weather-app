@@ -23,8 +23,8 @@ const Carousel: FC<I_CarouselProps> = () => {
 	// const maxWidth = -(weatherBlockWidth * 7);
 	const maxWidth = -724
 
-	console.log('offset', offset)
-	console.log('maxWidth', maxWidth)
+	// console.log('offset', offset)
+	// console.log('maxWidth', maxWidth)
 
 	const handleLeftClick = () => {
 		setOffset((currentOffset: number) => {
@@ -52,7 +52,7 @@ const Carousel: FC<I_CarouselProps> = () => {
 		if (windowRef.current) {
 			const windowWidth = windowRef.current.clientWidth;
 
-			console.log('windowWidth', windowWidth)
+			// console.log('windowWidth', windowWidth)
 		}
 	};
 
