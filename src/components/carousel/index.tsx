@@ -90,6 +90,10 @@ const Carousel: FC = () => {
 		};
 	}, [weatherBlockWidth, windowRef, offset, maxOffset, ratio, list]);
 
+	useEffect(()=>{
+		setOffset(0)
+	}, [list])
+
 	return (
 		<div className={styles.mainContainer}>
 			<div

@@ -26,9 +26,11 @@ const WeatherModule = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [isInput, setIsInput] = useState<boolean>(false);
+	const [inputValue, setInputValue] = useState<string>('');
 
 	const handleInputClose = () => {
 		setIsInput(false);
+		setInputValue('')
 	};
 
 	const getWeather = async (city: string) => {
@@ -95,7 +97,7 @@ const WeatherModule = () => {
 				<div onClick={handleInputClose} className={styles.content}>
 					<div className={styles.top}>
 						<WeatherBlock />
-						<LocationBlock isInput={isInput} setIsInput={setIsInput} />
+						<LocationBlock isInput={isInput} setIsInput={setIsInput} inputValue={inputValue} setInputValue={setInputValue}/>
 					</div>
 					<Carousel />
 				</div>

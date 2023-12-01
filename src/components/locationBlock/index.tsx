@@ -18,9 +18,11 @@ import styles from './locationBlock.module.scss';
 interface I_LocationBlock {
 	setIsInput: React.Dispatch<React.SetStateAction<boolean>>;
 	isInput: boolean;
+	inputValue: string;
+	setInputValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const LocationBlock: FC<I_LocationBlock> = ({ isInput, setIsInput }) => {
+const LocationBlock: FC<I_LocationBlock> = ({ isInput, setIsInput, inputValue, setInputValue }) => {
 	const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
 		useDispatch();
 
@@ -28,7 +30,7 @@ const LocationBlock: FC<I_LocationBlock> = ({ isInput, setIsInput }) => {
 		(state: any) => state.cities.cities
 	);
 
-	const [inputValue, setInputValue] = useState<string>('');
+	// const [inputValue, setInputValue] = useState<string>('');
 
 	const debounce = useDebounce(inputValue, 1000);
 
@@ -51,6 +53,7 @@ const LocationBlock: FC<I_LocationBlock> = ({ isInput, setIsInput }) => {
 
 	useEffect(() => {
 		setIsInput(false);
+		setInputValue('')
 	}, [selectedCity]);
 
 	useEffect(() => {
