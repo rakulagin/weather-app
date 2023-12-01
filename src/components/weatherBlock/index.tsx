@@ -41,7 +41,6 @@ interface I_Carousel {
 	tempMini?: any;
 	timeMini?: any;
 	windMini?: any;
-	ref?: any;
 }
 
 const WeatherBlock: FC<I_Carousel> = ({
@@ -51,7 +50,6 @@ const WeatherBlock: FC<I_Carousel> = ({
 	timeMini,
 	windMini,
 	isToday,
-	ref,
 }) => {
 	const { windSpeed, feelsLike, pressure, status, data, temp, wind } =
 		useSelector((state: any) => state.weatherToday.weatherToday);
@@ -281,7 +279,6 @@ const WeatherBlock: FC<I_Carousel> = ({
 
 	return (
 		<div
-			ref={ref}
 			className={classNames(
 				styles.mainBlock,
 				isCarousel ? styles.blockInCarousel : styles.block,
@@ -333,9 +330,9 @@ const WeatherBlock: FC<I_Carousel> = ({
 				</div>
 			) : isCarousel ? (
 				<div className={styles.metricsInCarousel}>
-					<p>Температура {tempMini && tempMini.temp_min} С</p>
+					<p>Температура {tempMini && tempMini.temp_min} &#8451;</p>
 					<p className={styles.darken}>
-						Ощущается как {tempMini && tempMini.temp_max} С
+						Ощущается как {tempMini && tempMini.temp_max} &#8451;
 					</p>
 					<p>
 						Ветер: {windMini && formatWind(windMini.deg)}{' '}
@@ -351,8 +348,8 @@ const WeatherBlock: FC<I_Carousel> = ({
 							alt='temperature icon'
 						/>
 						<div>
-							<p>За окном {temp} С</p>
-							<p>Ощущается как {feelsLike} С</p>
+							<p>За окном {temp} &#8451;</p>
+							<p>Ощущается как {feelsLike} &#8451;</p>
 						</div>
 					</div>
 					<div className={styles.metrics}>

@@ -10,20 +10,40 @@ export const fetchWeatherToday = createAsyncThunk(
 	}
 );
 
-const initialState = {
-	weatherToday: {
-		data: [],
-		list: [],
-		temp: 0,
-		feelsLike: 0,
-		pressure: 0,
-		wind: 0,
-		windSpeed: 0,
-		maxTemp: 0,
-		minTemp: 0,
+interface WeatherTodayData {
+  timezone: number;
+}
 
-		status: 'loading',
-	},
+interface WeatherTodayState {
+  weatherToday: {
+    data: WeatherTodayData;
+    list: any[];
+    temp: number;
+    feelsLike: number;
+    pressure: number;
+    wind: number;
+    windSpeed: number;
+    maxTemp: number;
+    minTemp: number;
+    status: string;
+  };
+}
+
+const initialState: WeatherTodayState = {
+  weatherToday: {
+    data: {
+      timezone: 0,
+    },
+    list: [],
+    temp: 0,
+    feelsLike: 0,
+    pressure: 0,
+    wind: 0,
+    windSpeed: 0,
+    maxTemp: 0,
+    minTemp: 0,
+    status: 'loading',
+  },
 };
 
 const weatherTodaySlice = createSlice({
@@ -32,7 +52,6 @@ const weatherTodaySlice = createSlice({
 	reducers: {},
 	extraReducers: builder => {
 		builder.addCase(fetchWeatherToday.pending, (state, action) => {
-			state.weatherToday.data = [];
 			state.weatherToday.status = 'loading';
 		});
 		builder.addCase(fetchWeatherToday.fulfilled, (state, action) => {
@@ -47,7 +66,6 @@ const weatherTodaySlice = createSlice({
 			state.weatherToday.status = 'loaded';
 		});
 		builder.addCase(fetchWeatherToday.rejected, (state, action) => {
-			state.weatherToday.data = [];
 			state.weatherToday.status = 'error';
 		});
 	},

@@ -89,7 +89,7 @@ const WeatherModule = () => {
 		};
 
 		getLocation();
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<>

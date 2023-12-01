@@ -32,6 +32,7 @@ const Carousel: FC = () => {
 		setOffset(value);
 	};
 
+	// 303 это проверка на то отображается блок в мобильной или десктопной версии
 	const handleRightClick = () => {
 		const firstClick =
 			offset === 0 && weatherBlockWidth >= 303 ? weatherBlockWidth * ratio : 0;
@@ -51,6 +52,7 @@ const Carousel: FC = () => {
 		}
 	};
 
+	// 16 это gap между карточками
 	const calculateBlockWidth = () => {
 		if (blockRef.current) {
 			const blockWidth = blockRef.current.clientWidth;

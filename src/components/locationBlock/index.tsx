@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import classNames from 'classnames';
 
@@ -11,7 +11,7 @@ import { fetchCities } from '../../redux/slices/citySlice';
 
 import useDebounce from '../../hooks/useDebounce';
 
-import { getCurrentTime } from '../../helpers/formatTime';
+import { formatTimeWithTimezone } from '../../helpers/formatTime';
 
 import styles from './locationBlock.module.scss';
 
@@ -29,8 +29,7 @@ const LocationBlock: FC<I_LocationBlock> = ({ isInput, setIsInput, inputValue, s
 	const { selectedCity, location } = useSelector(
 		(state: any) => state.cities.cities
 	);
-
-	// const [inputValue, setInputValue] = useState<string>('');
+	const { data } = useSelector((state: RootState) => state.weatherToday.weatherToday)
 
 	const debounce = useDebounce(inputValue, 1000);
 
@@ -98,7 +97,8 @@ const LocationBlock: FC<I_LocationBlock> = ({ isInput, setIsInput, inputValue, s
 				)}
 			</div>
 			<div className={styles.subBlock}>
-				<h2>{getCurrentTime()}</h2>
+				{/* <h2>{getCurrentTime()}</h2> */}
+				<h2>{data && formatTimeWithTimezone(data.timezone)}</h2>
 				<button onClick={event => handleInputClick(event)}>Изменить</button>
 			</div>
 		</div>
