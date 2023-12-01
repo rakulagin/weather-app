@@ -102,7 +102,7 @@ const WeatherModule = () => {
 					<Carousel />
 				</div>
 			</div>
-			{isOpen && isInput && <Modal setIsOpen={setIsOpen} />}
+			{data.length > 0 && isOpen && isInput && <Modal setIsOpen={setIsOpen} />}
 		</>
 	);
 };
