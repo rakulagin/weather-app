@@ -90,6 +90,10 @@ h2 {
 		width: calc(100% - 45px);
     align-self: center;
 	}
+
+   .weatherPick {
+    margin: -30px;
+   }
 }
 
 @media (max-width: 425px) {
