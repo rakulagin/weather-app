@@ -320,9 +320,9 @@ const WeatherBlock: FC<I_Carousel> = ({
 			)}
 			{isToday ? (
 				<div className={styles.metricsInCarousel}>
-					<p>Температура {temp && temp} С</p>
+					<p>Температура {temp && Math.round(temp)} С</p>
 					<p className={styles.darken}>
-						Ощущается как {feelsLike && feelsLike} С
+						Ощущается как {feelsLike && Math.round(feelsLike)} С
 					</p>
 					<p>
 						Ветер: {wind && formatWind(wind)} {windSpeed && windSpeed} м/с
@@ -330,9 +330,9 @@ const WeatherBlock: FC<I_Carousel> = ({
 				</div>
 			) : isCarousel ? (
 				<div className={styles.metricsInCarousel}>
-					<p>Температура {tempMini && tempMini.temp_min} &#8451;</p>
+					<p>Температура {tempMini && Math.round(tempMini.temp_min)} &#8451;</p>
 					<p className={styles.darken}>
-						Ощущается как {tempMini && tempMini.temp_max} &#8451;
+						Ощущается как {tempMini && Math.round(tempMini.temp_max)} &#8451;
 					</p>
 					<p>
 						Ветер: {windMini && formatWind(windMini.deg)}{' '}
@@ -348,8 +348,8 @@ const WeatherBlock: FC<I_Carousel> = ({
 							alt='temperature icon'
 						/>
 						<div>
-							<p>За окном {temp} &#8451;</p>
-							<p>Ощущается как {feelsLike} &#8451;</p>
+							<p>За окном {Math.round(temp)} &#8451;</p>
+							<p>Ощущается как {Math.round(feelsLike)} &#8451;</p>
 						</div>
 					</div>
 					<div className={styles.metrics}>
